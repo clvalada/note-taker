@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -11,8 +12,8 @@ app.use(express.static('public'));
 // Read notes from JSON File and send as a response
 app.get('/api/notes', (req, res) => {
     try {
-      // Read the contents of the 'notes.json' file
-      const notesData = fs.readFileSync('notes.json', 'utf8');
+      // Read the contents of the 'db.json' file
+      const notesData = fs.readFileSync('db.json', 'utf8');
   
       // Parse the JSON data into an array
       const notes = JSON.parse(notesData);
@@ -28,8 +29,8 @@ app.get('/api/notes', (req, res) => {
  //Add new note to the JSON file 
 app.post('/api/notes', (req, res) => {
     try {
-        // Read the contents of the 'notes.json' file
-        const notesData = fs.readFileSync('notes.json', 'utf8');
+        // Read the contents of the 'db.json' file
+        const notesData = fs.readFileSync('db.json', 'utf8');
 
         // Parse the JSON data into an array
         const notes = JSON.parse(notesData);
@@ -46,8 +47,8 @@ app.post('/api/notes', (req, res) => {
       // Add the new note to the array of notes
       notes.push(newNote);
   
-      // Write the updated notes array back to the 'notes.json' file
-      fs.writeFileSync('notes.json', JSON.stringify(notes, null, 2));
+      // Write the updated notes array back to the 'db.json' file
+      fs.writeFileSync('db.json', JSON.stringify(notes, null, 2));
   
       // Send a success response
       res.json(newNote);
@@ -62,8 +63,8 @@ app.delete('/api/notes/:id', (req, res) => {
     try {
       const noteId = req.params.id;
   
-      // Read the contents of the 'notes.json' file
-      const notesData = fs.readFileSync('notes.json', 'utf8');
+      // Read the contents of the 'db.json' file
+      const notesData = fs.readFileSync('db.json', 'utf8');
   
       // Parse the JSON data into an array
       const notes = JSON.parse(notesData);
@@ -75,8 +76,8 @@ app.delete('/api/notes/:id', (req, res) => {
         // Remove the note from the array
         notes.splice(noteIndex, 1);
   
-        // Write the updated notes array back to the 'notes.json' file
-        fs.writeFileSync('notes.json', JSON.stringify(notes, null, 2));
+        // Write the updated notes array back to the 'db.json' file
+        fs.writeFileSync('db.json', JSON.stringify(notes, null, 2));
   
         // Send a success response
         res.json({ message: 'Note deleted' });
