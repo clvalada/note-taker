@@ -50,10 +50,10 @@ https://note-taker-clv-f900bf932a65.herokuapp.com/public/index.html
 ## Usage
 
 Usage is easy. Click the blue button to "Get Started"
-![demo-01.](screenshots/11-express-homework-demo-01.png)
+![screenshot1.](screenshots/screenshot1.png)
 
-Enter your desired notes and click the save icon. 
-![demo-02.](screenshots/11-express-homework-demo-02.png)
+Enter your desired notes and click the save icon. You can click the "+" icon to create a new note or click the note title from the list on the lefthand side to read saved notes.
+![screenshot2.](screenshots/screenshot2.png)
 
 ## License
 
