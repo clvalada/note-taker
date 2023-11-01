@@ -13,7 +13,7 @@ app.use(express.static('public'));
 app.get('/api/notes', (req, res) => {
     try {
       // Read the contents of the 'db.json' file
-      const notesData = fs.readFileSync('db.json', 'utf8');
+      const notesData = fs.readFileSync('./db/db.json', 'utf8');
   
       // Parse the JSON data into an array
       const notes = JSON.parse(notesData);
@@ -30,7 +30,7 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     try {
         // Read the contents of the 'db.json' file
-        const notesData = fs.readFileSync('db.json', 'utf8');
+        const notesData = fs.readFileSync('./db/db.json', 'utf8');
 
         // Parse the JSON data into an array
         const notes = JSON.parse(notesData);
@@ -48,7 +48,7 @@ app.post('/api/notes', (req, res) => {
       notes.push(newNote);
   
       // Write the updated notes array back to the 'db.json' file
-      fs.writeFileSync('db.json', JSON.stringify(notes, null, 2));
+      fs.writeFileSync('./db/db.json', JSON.stringify(notes, null, 2));
   
       // Send a success response
       res.json(newNote);
@@ -64,7 +64,7 @@ app.delete('/api/notes/:id', (req, res) => {
       const noteId = req.params.id;
   
       // Read the contents of the 'db.json' file
-      const notesData = fs.readFileSync('db.json', 'utf8');
+      const notesData = fs.readFileSync('./db/db.json', 'utf8');
   
       // Parse the JSON data into an array
       const notes = JSON.parse(notesData);
@@ -77,7 +77,7 @@ app.delete('/api/notes/:id', (req, res) => {
         notes.splice(noteIndex, 1);
   
         // Write the updated notes array back to the 'db.json' file
-        fs.writeFileSync('db.json', JSON.stringify(notes, null, 2));
+        fs.writeFileSync('./db/db.json', JSON.stringify(notes, null, 2));
   
         // Send a success response
         res.json({ message: 'Note deleted' });
@@ -90,15 +90,17 @@ app.delete('/api/notes/:id', (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-app.get('/notes', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'notes.html'));
-});
+  app.get('/send', (req, res) =>
+  res.sendFile(path.join(__dirname, 'public/sendFile.html'))
+);
+  app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/notes.html'));
+  });
   
+  app.get('*', (req, res) => {
+   res.sendFile(path.join(__dirname, '/public/index.html'));
+  });
+
 app.listen(PORT, () => {
-  console.log(`App listening on PORT: ${PORT}`);
+  console.log(`App listening at http://localhost:${PORT}`);
 });
